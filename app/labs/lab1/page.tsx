@@ -6,7 +6,7 @@ import Images from "./Images"
 import Forms from "./forms/Forms"
 import HighlightedParagraphLab from "./HighlightedParagraph"
 import HighlightedBoxLab from "./HighlightedBox"
-import AnchorTag from "./AnchorTab"
+import AnchorTag from "./AnchorTag"
 
 export default function lab1(){
     return (
