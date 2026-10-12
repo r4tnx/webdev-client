@@ -397,7 +397,7 @@ img.wd-float-right {
 }
 
 .wd-width-110px {
-  /* Room for "Column 1" + 10px padding under border-box */
+  /* Room for "Column 1" + 10px padding under borderbox */
   width: 110px;
   flex-shrink: 0;
 }
