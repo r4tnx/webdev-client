@@ -1,6 +1,13 @@
 import Link from "next/link";
+import * as db from "../../../../database";
 
-export default function AssignmentEditor() {
+export default async function AssignmentEditor({
+  params,
+}: {
+  params: Promise<{ cid: string; aid: string }>;
+}) {
+  const { cid, aid } = await params;
+  const assignment = db.assignments.find((a) => a._id === aid);
   return (
     <div id="wd-assignments-editor" className="max-w-3xl">
       <div className="mb-4">
@@ -9,10 +16,11 @@ export default function AssignmentEditor() {
         </label>
         <input
           id="wd-name"
-          defaultValue="A1 - ENV + HTML"
+          defaultValue={assignment?.title ?? ""}
           className="w-full rounded border border-neutral-300 bg-white p-2 text-sm"
         />
       </div>
+      <p className="mb-4 text-sm text-neutral-600">Assignment id: {aid}</p>
       <div className="mb-4">
         <label htmlFor="wd-description" className="mb-1 block text-sm font-medium">
           Description
@@ -20,7 +28,7 @@ export default function AssignmentEditor() {
         <textarea
           id="wd-description"
           rows={5}
-          defaultValue="The assignment is available online Submit a link to the landing page of your Web application running on Vercel."
+          defaultValue={assignment?.description ?? ""}
           className="w-full rounded border border-neutral-300 bg-white p-2 text-sm"
         />
       </div>
@@ -30,7 +38,7 @@ export default function AssignmentEditor() {
         </label>
         <input
           id="wd-points"
-          defaultValue={100}
+          defaultValue={assignment?.points ?? 100}
           className="w-full rounded border border-neutral-300 bg-white p-2 text-sm"
         />
       </div>
@@ -112,6 +120,7 @@ export default function AssignmentEditor() {
           <input
             type="date"
             id="wd-due-date"
+            defaultValue={assignment?.due}
             className="w-full rounded border border-neutral-300 bg-white p-2 text-sm"
           />
         </div>
@@ -123,6 +132,7 @@ export default function AssignmentEditor() {
             <input
               type="date"
               id="wd-available-from"
+              defaultValue={assignment?.available}
               className="w-full rounded border border-neutral-300 bg-white p-2 text-sm"
             />
           </div>
@@ -150,14 +160,14 @@ export default function AssignmentEditor() {
       </div>
       <div className="flex justify-end gap-2 border-t border-neutral-300 pt-4">
         <Link
-          href="/courses/1234/assignments"
+          href={`/courses/${cid}/assignments`}
           id="wd-cancel"
           className="rounded border border-neutral-300 bg-white px-4 py-2 text-sm no-underline"
         >
           Cancel
         </Link>
         <Link
-          href="/courses/1234/assignments"
+          href={`/courses/${cid}/assignments`}
           id="wd-save"
           className="rounded bg-red-600 px-4 py-2 text-sm font-medium text-white no-underline"
         >
